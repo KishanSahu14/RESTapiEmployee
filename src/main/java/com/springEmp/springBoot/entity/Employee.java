@@ -1,11 +1,13 @@
 package com.springEmp.springBoot.entity;
 
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+
 import javax.persistence.SequenceGenerator;
 
-
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -19,9 +21,12 @@ import jakarta.validation.constraints.Size;
 
 @Document(collection="Emp")
 public class Employee {
-   @Id
-   @GeneratedValue(strategy = GenerationType.AUTO)
-   private int id;
+  
+@Transient
+public static final String SEQUENCE_NAME="user_sequence";
+	
+  @Id
+  private int id;
    
    @Indexed(unique = true)
 	private int empCode;

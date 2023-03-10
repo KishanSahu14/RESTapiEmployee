@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.springEmp.springBoot.entity.Employee;
 import com.springEmp.springBoot.repository.EmployeeRepository;
+import com.springEmp.springBoot.service.SequenceGeneratorService;
 
 import jakarta.validation.Valid;
 
@@ -21,9 +22,13 @@ public class MyController {
 
 	@Autowired
 	private EmployeeRepository employeerepository;
+	@Autowired
+	private SequenceGeneratorService service;
+	
 	
 	@PostMapping("/addEmp")
 	public String saveEmp(@Valid @RequestBody Employee emp) {
+		emp.setId(service.getSequenceNumber(emp.SEQUENCE_NAME));
 		employeerepository.save(emp);
 		return "Added employee with id: " + emp.getId();
 	}
