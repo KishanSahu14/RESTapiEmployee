@@ -5,50 +5,63 @@ import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.springEmp.springBoot.GlobalLogger.GlobLog;
 import com.springEmp.springBoot.controller.MyController;
 import com.springEmp.springBoot.entity.Employee;
+import com.springEmp.springBoot.exceptions.EmployeeNotFoundException;
 import com.springEmp.springBoot.repository.EmployeeRepository;
 
+import lombok.extern.slf4j.Slf4j;
+
+
+
 @Service
+@Slf4j
 public class EmployeeService {
 	
-	private Logger logger = GlobLog.getLogger(MyController.class);
+	//private Logger logger = GlobLog.getLogger(MyController.class);
 	
 	@Autowired
     private EmployeeRepository employeeRepository;
 
     public Employee createEmployee(Employee employee) {
     	
-    	logger.info("createEmployee() called");
+    	log.info("createEmployee() called");
     	
         return employeeRepository.save(employee);
     }
 
     public Employee getEmployeeById(int id) {
-    	logger.info("getEmployeeById() called");
-    	
+        log.info("getEmployeeById() called");
+
         Optional<Employee> employee = employeeRepository.findById(id);
-        return employee.isPresent() ? employee.get() : null;
+        if (employee.isPresent()) {
+            return employee.get();
+        } else {
+            throw new EmployeeNotFoundException("Employee not found with id: " + id);
+        }
     }
 
+
     public List<Employee> getAllEmployees() {
-    	logger.info("getAllEmployees() called");
+    	log.info("getAllEmployees() called");
     
         return employeeRepository.findAll();
     }
 
     public Employee updateEmployee(Employee employee) {
     	
-    	logger.info("updateEmployee() called");
+    	log.info("updateEmployee() called");
         return employeeRepository.save(employee);
     }
 
     public void deleteEmployee(int id) {
     	
-    	logger.info("deleteEmployee() called");
+    	log.info("deleteEmployee() called");
         employeeRepository.deleteById(id);
     }
 }
