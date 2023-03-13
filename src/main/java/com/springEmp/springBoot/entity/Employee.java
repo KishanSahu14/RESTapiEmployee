@@ -22,8 +22,8 @@ import jakarta.validation.constraints.Size;
 @Document(collection="Emp")
 public class Employee {
   
-@Transient
-public static final String SEQUENCE_NAME="user_sequence";
+	@Transient
+	public static final String SEQUENCE_NAME="user_sequence";
 	
   @Id
   private int id;

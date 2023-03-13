@@ -6,4 +6,5 @@ import com.springEmp.springBoot.entity.Employee;
 
 public interface EmployeeRepository extends MongoRepository<Employee,Integer>{
 
+	Employee findByEmpCode(int empCode);
 }

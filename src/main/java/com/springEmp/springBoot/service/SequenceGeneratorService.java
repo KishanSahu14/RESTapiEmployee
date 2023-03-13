@@ -11,6 +11,8 @@ import java.util.Objects;
 
 import com.springEmp.springBoot.entity.DbSequence;
 
+import jakarta.annotation.PostConstruct;
+
 @Service
 public class SequenceGeneratorService {
 
@@ -32,5 +34,9 @@ public class SequenceGeneratorService {
 		
 		return !Objects.isNull(counter) ? counter.getSeq(): 1;
 		
+		
+		
+		
 	}
+	
 }
