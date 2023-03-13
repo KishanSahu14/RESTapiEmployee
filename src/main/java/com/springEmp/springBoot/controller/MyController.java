@@ -70,7 +70,7 @@ public class MyController {
     }
 
     @PutMapping("/updateEmp/{id}")
-    public String updateEmp(@PathVariable int id, @Valid @RequestBody EmployeeDto empDto) {
+    public String updateEmp(@PathVariable String id, @Valid @RequestBody EmployeeDto empDto) {
 
         String methodName="updateEmp()";
         log.info(methodName + "called");
